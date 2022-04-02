@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "https://store-ap-i.netlify.app"
+    baseURL: "https://coffee-sparkly-coreopsis.glitch.me/" 
 })
