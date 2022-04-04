@@ -63,3 +63,31 @@ export const addToCart = product => {
         payload: product
     }
 }
+
+export const getRequests = () => async dispath => {
+    const response = await server.get("/requests");
+
+        dispath({
+            type: "GET_REQUESTS",
+            payload: response.data
+        })
+}
+
+export const getRequest = (id) => async dispath => {
+    const response = await server.get(`/requests/${id}`);
+
+        dispath({
+            type: "GET_REQUEST",
+            payload: response.data
+        })
+}
+
+export const deleteRequest = (id) => async dispath => {
+    await server.delete(`/requests/${id}`);
+
+    dispath({
+        type: "DELETE_REQUESTS",
+        payload: id
+    })
+    history.push("/admin/requests")
+}

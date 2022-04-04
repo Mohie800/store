@@ -20,6 +20,7 @@ const ProductList = (props) => {
                     <Link to="/products/add" className="ui button primary">
                         Add Product
                     </Link>
+                    <Link to="/admin/requests" className="ui button teal">View Requests</Link>
                 </div>
             )
         }
