@@ -5,6 +5,7 @@ import $ from "jquery";
 import { keys } from "lodash";
 import server from "../api/server";
 import history from "../history";
+import { clearCart } from "./actions";
 
 const Checkout = (props) => {
 
@@ -43,6 +44,7 @@ const Checkout = (props) => {
 
     const onSubmit = (values)=> {
         server.post("/requests",{...values,payment:sum, req: requstedPrducts})
+        props.clearCart()
         history.push("/")
     }
 
@@ -86,4 +88,4 @@ const formWraped = reduxForm({
     form : "AuthForm"
 }) (Checkout);
 
-export default connect(mapStateToProps)(formWraped);
+export default connect(mapStateToProps, { clearCart })(formWraped);

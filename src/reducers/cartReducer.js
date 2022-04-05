@@ -8,6 +8,8 @@ const cartReducer = (state = [], action) => {
     case "REMOVE_TO_CART":
       //filter through the single item that matches payload and remove it
       return state.filter((cartItem) => cartItem !== action.payload);
+    case "CLEAR_CART":
+      return (state = []);
     default:
       return state;
   }

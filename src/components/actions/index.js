@@ -71,6 +71,12 @@ export const removeFromCart = (product) => {
     }
 }
 
+export const clearCart = ()=> {
+    return {
+        type: "CLEAR_CART"
+    }
+}
+
 export const getRequests = () => async dispath => {
     const response = await server.get("/requests");
 
