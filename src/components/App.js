@@ -13,6 +13,7 @@ import Checkout from "./Checkout";
 import RequestList from "./admin/RequestList";
 import ReqShow from "./admin/ReqShow";
 import ReqDelete from "./admin/ReqDelete";
+import Thanks from "./Thanks";
 
 const App = ()=> {
 
@@ -58,6 +59,7 @@ const App = ()=> {
                     <Route path="/products/edit/:id" exact element={<EditProduct id={()=>getIDForEdit()} />} />
                     <Route path="/products/add" exact element={<AddProduct />} />
                     <Route path="/checkout" exact element={<Checkout />} />
+                    <Route path="/thanks" exact element={<Thanks /> } /> 
                 </Routes>
             </CoustomRouter>
         </div>

@@ -45,7 +45,7 @@ const Checkout = (props) => {
     const onSubmit = (values)=> {
         server.post("/requests",{...values,payment:sum, req: requstedPrducts})
         props.clearCart()
-        history.push("/")
+        history.push("/thanks")
     }
 
 
