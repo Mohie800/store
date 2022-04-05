@@ -34,7 +34,7 @@ const ReqDelete = (props) => {
             title= "Delete Product"
             content={content()}
             actions={actions}
-            onDismiss={()=> history.push("/")}
+            onDismiss={()=> history.push(`/admin/requests/${props.id()}`)}
              />
         }
     }

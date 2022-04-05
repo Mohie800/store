@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 const ProductList = (props) => {
 
+    const [amount, setAmount] = React.useState("1");
+
     
 
 
@@ -39,10 +41,14 @@ const ProductList = (props) => {
     }
 
 
+
     const renderCartButton = (product)=> {
         return (
             <div className="right floated content">
-                <button onClick={()=>props.addToCart(product)} className="ui teal button">Add to cart</button>
+                <button onClick={()=>props.addToCart(product, amount)} className="ui teal labeled icon button">
+                    <i className="cart icon" />
+                    Add to cart
+                </button>
             </div>
         )
     }
@@ -60,8 +66,10 @@ const ProductList = (props) => {
                         <div className="description">Price : {product.productPrice} SDG</div>
                     </div>
                     <div className="extra content" >
+                        <label>Amount:</label>
+                        <input onChange={(e)=>setAmount(e.target.value)} style={{"width":"50px"}} className="ui input" type="number" defaultValue="1" />
+                        {renderCartButton(product)}<br/>
                         {renderAdmin(product)}
-                        {renderCartButton(product)}
                     </div>
                 </div>
             )
@@ -71,9 +79,9 @@ const ProductList = (props) => {
 
 
     return (
-        <div>
+        <div className="ui container center">
             <h2>Products</h2>
-            <div className="ui link cards" >
+            <div className="ui link cards centered" >
                 {renderCards()}
             </div>
             {renderCreate()}

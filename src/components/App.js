@@ -13,6 +13,7 @@ import Checkout from "./Checkout";
 import RequestList from "./admin/RequestList";
 import ReqShow from "./admin/ReqShow";
 import ReqDelete from "./admin/ReqDelete";
+import Footer from "./admin/Footer";
 
 const App = ()=> {
 

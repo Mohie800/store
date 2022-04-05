@@ -57,9 +57,16 @@ export const signIn = (values) => dispath => {
     history.push("/")
 }
 
-export const addToCart = product => {
+export const addToCart = (product, amount) => {
     return {
         type: "ADD_TO_CART",
+        payload: {...product, amount}
+    }
+}
+
+export const removeFromCart = (product) => {
+    return {
+        type: "REMOVE_TO_CART",
         payload: product
     }
 }
@@ -86,7 +93,7 @@ export const deleteRequest = (id) => async dispath => {
     await server.delete(`/requests/${id}`);
 
     dispath({
-        type: "DELETE_REQUESTS",
+        type: "DELETE_REQUEST",
         payload: id
     })
     history.push("/admin/requests")

@@ -10,19 +10,22 @@ const AuthAdmin = (props)=> {
         props.signIn(values)
     }
     return(
-        <div className="ui container center aligned grid">
-            <div className="column">
-                <form className="ui large form" onSubmit={props.handleSubmit(onSubmit)} >
-                    <div className="ui  segment">
-                        <div className="field">
-                            <label>Admin Username</label>
-                            <Field type="text" name="Username" component="input" />
-                            <label>Password</label>
-                            <Field type="password" name="password" component="input" />
-                            <button className="ui fluid large teal submit button">Enter</button>
+        <div>
+            <br />
+            <div className="ui text container center aligned grid">
+                <div className="column">
+                    <form className="ui large form" onSubmit={props.handleSubmit(onSubmit)} >
+                        <div className="ui  segment">
+                            <div className="field">
+                                <label>Admin Username</label>
+                                <Field type="text" name="Username" component="input" />
+                                <label>Password</label>
+                                <Field type="password" name="password" component="input" />
+                                <button className="ui fluid large teal submit button">Enter</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     )

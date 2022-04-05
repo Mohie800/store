@@ -18,7 +18,7 @@ const Checkout = (props) => {
     }) 
     keys = $.map(counter, function(v, i){
         const parse = JSON.parse(i)
-        return {...parse, amount: v};
+        return {...parse};
     });
 
     
@@ -30,15 +30,13 @@ const Checkout = (props) => {
 
     
     //calculate total payment
-    let chash = []
+    
 
-    const out = props.cart.map(pro => {
-        return [...chash,Number(pro.productPrice)]
-    })
-
-    const flat = out.flat(10)
-
-    const sum = flat.reduce((accumulator, value) => {
+    const sum1 = props.cart.map(pro => {
+        return Number(pro.productPrice)*Number(pro.amount)
+        })
+        
+        const sum = sum1.reduce((accumulator, value) => {
         return accumulator + value;
       }, 0);
 
@@ -52,8 +50,8 @@ const Checkout = (props) => {
     return (
         <div>
             <div className="ui header">
-                {`Your total payment is: ${sum} SDG`}
-                <div className="ui container center aligned grid">
+                <br/>
+                <div className="ui text container grid">
                     <div className="column">
                         <form className="ui large form" onSubmit={props.handleSubmit(onSubmit)} >
                             <div className="ui  segment">
@@ -66,6 +64,7 @@ const Checkout = (props) => {
                                     <Field type="number" name="number" component="input" />
                                     <label>Adress</label>
                                     <Field type="text" name="adress" component="input" />
+                                    {`Your total payment is: ${sum} SDG`}
                                     <button className="ui fluid large teal submit button">Checkout</button>
                                 </div>
                             </div>

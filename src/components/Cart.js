@@ -1,27 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import $ from "jquery";
-import { keys } from "lodash";
 import { Link } from "react-router-dom";
+import { removeFromCart } from "./actions";
 
 const Cart = (props)=> {
-
-    let counter = {}
-
-    props.carts.forEach(function(obj) {
-        var key = JSON.stringify(obj)
-        counter[key] = (counter[key] || 0) + 1
-    }) 
-    keys = $.map(counter, function(v, i){
-        const parse = JSON.parse(i)
-        return {...parse, count: v} ;
-      });
-
 
 
 
     const renderPure = ()=> {
-            return keys.map(product => {
+        if(props.carts.length > 0){
+            return props.carts.map(product => {
                 return (
                 <div className="card" key={product.id}>
                     <div className="image">
@@ -32,12 +20,16 @@ const Cart = (props)=> {
                         <div className="description">Price : {product.productPrice} SDG</div>
                     </div>
                     <div className="extra content" >
-                        <p>counter : {product.count}</p>
+                        <div className="right floated content">
+                            <button onClick={()=>props.removeFromCart(product)} className="ui teal basic button">Remove</button>
+                        </div>
+                        <p>Amount : {product.amount}</p>
+                        
                     </div>
                 </div>
             )
             })
-       
+        } 
     }
 
     
@@ -45,13 +37,16 @@ const Cart = (props)=> {
 
 
     return (
-        <div className="container">
-            <div className="ui link cards">
+        <div className=" ui container"><br />
+            <div className="ui link cards centered">
                 {renderPure()}
             </div>
-            <div style={{textAlign: "right"}} className="right floated content">
+            {props.carts.length>0?
+             <div style={{textAlign: "right"}} className="right floated content">
                 <Link to="/checkout" className="ui teal button">checkout</Link>
-            </div>
+            </div>:<h1>The cart is empty!</h1>
+            }
+            
         </div>
     )
 }
@@ -60,4 +55,4 @@ const mapStateToProps = (state) => {
     return { carts: state.cart }
 }
 
-export default connect(mapStateToProps)(Cart)
+export default connect(mapStateToProps,{ removeFromCart })(Cart)

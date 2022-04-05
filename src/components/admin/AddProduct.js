@@ -40,7 +40,7 @@ const AddProduct = (props)=> {
             return (
                 <form className="ui form" onSubmit={props.handleSubmit(onFormSubmit)}>
                     <label>Product Name</label>
-                    <Field name="productName" component="input" type="text"/>
+                    <Field name="productName" component="input" type="text" autoComplete="off" autoCorrect="off" spellCheck="off"/>
                     <label>Product prise</label>
                     <Field name="productPrice" component="input" type="number"/>
                     <label>Upload image</label>
