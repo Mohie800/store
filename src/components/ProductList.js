@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getProducts, addToCart } from "./actions";
 import { Link } from "react-router-dom";
+import 'animate.css';
 
 const ProductList = (props) => {
 
@@ -57,7 +58,7 @@ const ProductList = (props) => {
     const renderCards = ()=> {
         return props.products.map(product => {
             return (
-                <div className="card" key={product.id}>
+                <div className="card animate__animated animate__backInUp animate__animated" key={product.id}>
                     <div className="image">
                         <img src={product.url} />
                     </div>
