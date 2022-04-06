@@ -86,7 +86,7 @@ const ProductList = (props) => {
                 {renderCards()}
             </div>
             {renderCreate()}
-            {props.isSignedIn?null:<Link to="/cart" style={{right: "10px", top: "200px", position: "fixed"}} id="example1"  className="circular ui sticky icon teal button">
+            {props.isSignedIn || props.cart.length <1?null:<Link to="/cart" style={{right: "10px", top: "200px", position: "fixed"}} id="example1"  className="circular ui sticky icon teal button">
                 {`(${props.cart.length})`}<i className=" large icon cart" />
             </Link>}
         </div>
