@@ -14,6 +14,7 @@ import RequestList from "./admin/RequestList";
 import ReqShow from "./admin/ReqShow";
 import ReqDelete from "./admin/ReqDelete";
 import Thanks from "./Thanks";
+import Dashboard from "./admin/Dashboard";
 
 const App = ()=> {
 
@@ -51,6 +52,7 @@ const App = ()=> {
                 <Routes >
                     <Route path="/" exact element={<ProductList />} />
                     <Route path="/admin" exact element={<AuthAdmin />} />
+                    <Route path="/admin/dashboard" exact element={<Dashboard />} />
                     <Route path="/admin/requests" exact element={<RequestList />} />
                     <Route path="/admin/requests/:id" exact element={<ReqShow id={()=>getIdforShowReq()} />} />
                     <Route path="/admin/requests/delete/:id" exact element={<ReqDelete id={()=>getIdforDelReq()} />} />

@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { getProducts, addToCart } from "./actions";
 import { Link } from "react-router-dom";
-import 'animate.css';
 
 const ProductList = (props) => {
 
@@ -79,6 +78,7 @@ const ProductList = (props) => {
 
 
 
+
     return (
         <div className="ui container center">
             <h2>Products</h2>
@@ -86,6 +86,9 @@ const ProductList = (props) => {
                 {renderCards()}
             </div>
             {renderCreate()}
+            {props.isSignedIn?null:<Link to="/cart" style={{right: "10px", top: "200px", position: "fixed"}} id="example1"  className="circular ui sticky icon teal button">
+                {`(${props.cart.length})`}<i className=" large icon cart" />
+            </Link>}
         </div>
     )
 }
@@ -93,7 +96,8 @@ const ProductList = (props) => {
 const mapStateToProps = (state) => {
     return {
         products : Object.values(state.products),
-        isSignedIn : state.authState.isSignedIn
+        isSignedIn : state.authState.isSignedIn,
+        cart: state.cart
     }
 }
 

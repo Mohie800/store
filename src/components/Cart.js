@@ -11,7 +11,7 @@ const Cart = (props)=> {
         if(props.carts.length > 0){
             return props.carts.map(product => {
                 return (
-                <div className="card" key={product.id}>
+                <div className="card animate__animated animate__backInUp" key={product.id}>
                     <div className="image">
                         <img src={product.url} />
                     </div>

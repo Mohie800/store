@@ -54,7 +54,7 @@ export const signIn = (values) => dispath => {
         type : "SIGN_IN",
         payload: values
     })
-    history.push("/")
+    history.push("/admin/dashboard")
 }
 
 export const addToCart = (product, amount) => {
