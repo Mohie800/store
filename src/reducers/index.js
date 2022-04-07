@@ -4,11 +4,15 @@ import productReducer from "./productReducer";
 import authReducer from "./authReducer";
 import cartReducer from "./cartReducer";
 import requestsReducer from "./requestsReducer";
+import aproveReducer from "./aproveReducer";
+import archiveReducer from "./archiveReducer";
 
 export default combineReducers({
     form: reducer,
     products : productReducer,
     authState: authReducer,
     cart: cartReducer,
-    requests: requestsReducer
+    requests: requestsReducer,
+    aproved: aproveReducer,
+    archive: archiveReducer
 })

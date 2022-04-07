@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getRequests } from "../actions";
+import { getAproveds } from "../actions";
 
 
-const RequestList = (props) => {
+const Aproved = (props) => {
 
     React.useEffect(()=>{
-        props.getRequests()
+        props.getAproveds()
     },[])
 
 
@@ -18,7 +18,7 @@ const RequestList = (props) => {
                     <div className="item" key={req.id}>
                         <i className="large paper plane middle aligned icon" />
                         <div className="content" >
-                            <Link to={`/admin/requests/${req.id}`} className="header">From {req.name}</Link>
+                            <Link to={`/admin/aproved/${req.id}`} className="header">From {req.name}</Link>
                             <div className="dicription">
                             <i className="phone icon"/>{req.number}</div>
                         </div>
@@ -42,8 +42,8 @@ const RequestList = (props) => {
 const mapStateToProps = (state) => {
     return {
         isSignedIn: state.authState.isSignedIn,
-        requests: Object.values(state.requests)
+        requests: Object.values(state.aproved)
     }
 }
 
-export default connect(mapStateToProps, { getRequests })(RequestList);
+export default connect(mapStateToProps, { getAproveds })(Aproved);

@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getRequest,deleteRequest } from "../actions";
+import { getAproved,deleteAproved } from "../actions";
 import server from "../../api/server";
 import history from "../../history";
 
-const ReqShow = (props) => {
+const AprovedShow = (props) => {
 
     React.useEffect(()=> {
         if (props.isSignedIn) {
-            props.getRequest(props.id())
+            props.getAproved(props.id())
         }
     }, [])
 
@@ -68,21 +68,21 @@ const ReqShow = (props) => {
         } 
     }
 
-    const aprove = async () => {
-        await server.post("/aproved", {...props.request})
-        props.deleteRequest(props.request.id)
-        history.push("/admin/requests")
+    const moveToArcive = async () => {
+        await server.post("/archive", {...props.request})
+        props.deleteAproved(props.request.id)
+        history.push("/admin/aproved")
     }
 
     const renderDelete = () => {
         if(props.isSignedIn){
             return <div className="right content">
-                <button onClick={()=>aprove()} className="ui button teal labeled icon">
-                <i className="check circle icon"></i>
-                    Aprove Request
+                <button onClick={()=>moveToArcive()} className="ui button teal labeled icon">
+                <i className="warehouse icon"></i>
+                    Move to archive
                 </button>
-                <Link to={`/admin/requests/delete/${props.request.id}`} className="ui button negative labeled icon">
-                    <i className="icon trash"/>
+                <Link to={`/admin/aproved/delete/${props.request.id}`} className="ui button negative labeled icon">
+                    <i className="trash icon"></i>
                     Delete Request
                 </Link>
             </div>
@@ -108,8 +108,8 @@ const ReqShow = (props) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         isSignedIn : state.authState.isSignedIn,
-        request : state.requests[ownProps.id()]
+        request : state.aproved[ownProps.id()]
     }
 }
 
-export default connect(mapStateToProps, { getRequest,deleteRequest })(ReqShow);
+export default connect(mapStateToProps, { getAproved,deleteAproved })(AprovedShow);

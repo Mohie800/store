@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getRequests } from "../actions";
+import { getArchives } from "../actions";
 
 
-const RequestList = (props) => {
+const Archive = (props) => {
 
     React.useEffect(()=>{
-        props.getRequests()
+        props.getArchives()
     },[])
 
 
@@ -18,7 +18,7 @@ const RequestList = (props) => {
                     <div className="item" key={req.id}>
                         <i className="large paper plane middle aligned icon" />
                         <div className="content" >
-                            <Link to={`/admin/requests/${req.id}`} className="header">From {req.name}</Link>
+                            <Link to={`/admin/archive/${req.id}`} className="header">From {req.name}</Link>
                             <div className="dicription">
                             <i className="phone icon"/>{req.number}</div>
                         </div>
@@ -33,17 +33,15 @@ const RequestList = (props) => {
 
 
     return (
-        <div className="ui container"><br />
-            <div className="ui relaxed divided list">{renderCards()}</div>
-        </div>
+        <div className="ui relaxed divided list">{renderCards()}</div>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
         isSignedIn: state.authState.isSignedIn,
-        requests: Object.values(state.requests)
+        requests: Object.values(state.archive)
     }
 }
 
-export default connect(mapStateToProps, { getRequests })(RequestList);
+export default connect(mapStateToProps, { getArchives })(Archive);

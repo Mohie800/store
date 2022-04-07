@@ -42,8 +42,8 @@ const Checkout = (props) => {
       }, 0);
 
 
-    const onSubmit = (values)=> {
-        server.post("/requests",{...values,payment:sum, req: requstedPrducts})
+    const onSubmit = async (values)=> {
+        await server.post("/requests",{...values,payment:sum, req: requstedPrducts, id:Math.random().toString(36).substr(2, 9)})
         props.clearCart()
         history.push("/thanks")
     }

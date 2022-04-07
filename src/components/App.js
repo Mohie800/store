@@ -15,6 +15,13 @@ import ReqShow from "./admin/ReqShow";
 import ReqDelete from "./admin/ReqDelete";
 import Thanks from "./Thanks";
 import Dashboard from "./admin/Dashboard";
+import Aproved from "./admin/Aproved";
+import AprovedShow from "./admin/AprovedShow";
+import AprovedDelete from "./admin/AprovedDelete";
+import Stock from "./admin/Stock";
+import StockEdit from "./admin/StockEdit";
+import Archive from "./admin/Archive";
+import ArcShow from "./admin/ArcShow";
 
 const App = ()=> {
 
@@ -44,6 +51,18 @@ const App = ()=> {
         return id
     }
 
+    const getIdForAprDel = () => {
+        const pathName = window.location.pathname;
+        const id = pathName.substring(22)
+        return id
+    }
+
+    const getIdForStock = () => {
+        const pathName = window.location.pathname;
+        const id = pathName.substring(18)
+        return id
+    }
+
 
     return (
         <div>
@@ -53,6 +72,13 @@ const App = ()=> {
                     <Route path="/" exact element={<ProductList />} />
                     <Route path="/admin" exact element={<AuthAdmin />} />
                     <Route path="/admin/dashboard" exact element={<Dashboard />} />
+                    <Route path="/admin/stock" exact element={<Stock />} />
+                    <Route path="/admin/stock/edit/:id" exact element={<StockEdit id={()=>getIdForStock()} />} />
+                    <Route path="/admin/archive" exact element={<Archive />} />
+                    <Route path="/admin/archive/:id" exact element={<ArcShow id={()=> getIDForEdit()} />} />
+                    <Route path="/admin/aproved" exact element={<Aproved />} />
+                    <Route path="/admin/aproved/:id" exact element={<AprovedShow id={()=>getIDForEdit()} />} />
+                    <Route path="/admin/aproved/delete/:id" exact element={<AprovedDelete id={()=>getIdForAprDel()} />} />
                     <Route path="/admin/requests" exact element={<RequestList />} />
                     <Route path="/admin/requests/:id" exact element={<ReqShow id={()=>getIdforShowReq()} />} />
                     <Route path="/admin/requests/delete/:id" exact element={<ReqDelete id={()=>getIdforDelReq()} />} />

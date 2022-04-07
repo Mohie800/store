@@ -39,6 +39,16 @@ export const editProduct = (id, formValues, url) => async dispath => {
     history.push("/")
 }
 
+export const editStock = (id, formValues, url) => async dispath => {
+    const responce = await server.patch(`/products/${id}`, {...formValues, url});
+
+    dispath({
+        type: "EDIT_PRODUCT",
+        payload: responce.data
+    })
+    history.push("/admin/stock")
+}
+
 export const deleteProduct = (id) => async dispath => {
     await server.delete(`/products/${id}`);
 
@@ -103,4 +113,61 @@ export const deleteRequest = (id) => async dispath => {
         payload: id
     })
     history.push("/admin/requests")
+}
+
+export const getAproveds = () => async dispath => {
+    const response = await server.get("/aproved");
+
+        dispath({
+            type: "GET_APROVEDS",
+            payload: response.data
+        })
+}
+
+export const getAproved = (id) => async dispath => {
+    const response = await server.get(`/aproved/${id}`);
+
+        dispath({
+            type: "GET_APROVED",
+            payload: response.data
+        })
+}
+
+export const deleteAproved = (id) => async dispath => {
+    await server.delete(`/aproved/${id}`);
+
+    dispath({
+        type: "DELETE_APROVED",
+        payload: id
+    })
+    history.push("/admin/aproved")
+}
+
+
+export const getArchives = () => async dispath => {
+    const response = await server.get("/archive");
+
+        dispath({
+            type: "GET_ARCHIVES",
+            payload: response.data
+        })
+}
+
+export const getArchive = (id) => async dispath => {
+    const response = await server.get(`/archive/${id}`);
+
+        dispath({
+            type: "GET_ARCHIVE",
+            payload: response.data
+        })
+}
+
+export const deleteArchive = (id) => async dispath => {
+    await server.delete(`/archive/${id}`);
+
+    dispath({
+        type: "DELETE_ARCHIVE",
+        payload: id
+    })
+    history.push("/admin/archive")
 }

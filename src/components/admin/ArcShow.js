@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getRequest,deleteRequest } from "../actions";
+import { getArchive,deleteArchive } from "../actions";
 import server from "../../api/server";
 import history from "../../history";
 
-const ReqShow = (props) => {
+const ArcShow = (props) => {
 
     React.useEffect(()=> {
         if (props.isSignedIn) {
-            props.getRequest(props.id())
+            props.getArchive(props.id())
         }
     }, [])
 
@@ -68,23 +68,16 @@ const ReqShow = (props) => {
         } 
     }
 
-    const aprove = async () => {
-        await server.post("/aproved", {...props.request})
-        props.deleteRequest(props.request.id)
-        history.push("/admin/requests")
+    const deleteArcive = async () => {
+        props.deleteArchive(props.request.id)
+        // server.delete(`/requests/${props.request.id}`)
+        history.push("/admin/archive")
     }
 
     const renderDelete = () => {
         if(props.isSignedIn){
-            return <div className="right content">
-                <button onClick={()=>aprove()} className="ui button teal labeled icon">
-                <i className="check circle icon"></i>
-                    Aprove Request
-                </button>
-                <Link to={`/admin/requests/delete/${props.request.id}`} className="ui button negative labeled icon">
-                    <i className="icon trash"/>
-                    Delete Request
-                </Link>
+            return <div className="ui right content">
+                <button onClick={()=>deleteArcive()} className="ui button red">Delete from archive</button>
             </div>
         }
          
@@ -92,7 +85,7 @@ const ReqShow = (props) => {
 
 
     return (
-        <div className="ui container"><br />
+        <div className="container">
             {renderReqDetails()}
             <div className="ui segment">
                 <h2 className="ui header">Request:</h2>
@@ -108,8 +101,8 @@ const ReqShow = (props) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         isSignedIn : state.authState.isSignedIn,
-        request : state.requests[ownProps.id()]
+        request : state.archive[ownProps.id()]
     }
 }
 
-export default connect(mapStateToProps, { getRequest,deleteRequest })(ReqShow);
+export default connect(mapStateToProps, { getArchive,deleteArchive })(ArcShow);

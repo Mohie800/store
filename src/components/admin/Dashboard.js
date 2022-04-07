@@ -8,7 +8,7 @@ const Dashboard = (props) => {
             <div className="ui container"><br></br>
                 <div className="ui relaxed divided list">
                     <div className="item">
-                        <i class="inbox large middle aligned icon teal"></i>
+                        <i className="inbox large middle aligned icon teal"></i>
                         <div className="content">
                             <Link to="/admin/requests" className="header">New Requests</Link>
                             <div className="description">View new upcoming requests</div>
@@ -17,16 +17,16 @@ const Dashboard = (props) => {
                 </div>
                 <div className="ui relaxed divided list">
                     <div className="item">
-                        <i class="clipboard check large middle aligned icon teal"></i>
+                        <i className="clipboard check large middle aligned icon teal"></i>
                         <div className="content">
-                            <Link to="/" className="header">Aproved Requests</Link>
+                            <Link to="/admin/aproved" className="header">Aproved Requests</Link>
                             <div className="description">View your aproved requests which are ready to delever</div>
                         </div>
                     </div>
                 </div>
                 <div className="ui relaxed divided list">
                     <div className="item">
-                        <i class="product hunt large middle aligned icon teal"></i>
+                        <i className="product hunt large middle aligned icon teal"></i>
                         <div className="content">
                             <Link to="/" className="header">My Products</Link>
                             <div className="description">Add, edit or remove products</div>
@@ -35,18 +35,18 @@ const Dashboard = (props) => {
                 </div>
                 <div className="ui relaxed divided list">
                     <div className="item">
-                        <i class="dolly flatbed large middle aligned icon teal"></i>
+                        <i className="dolly flatbed large middle aligned icon teal"></i>
                         <div className="content">
-                            <Link to="/" className="header">My stock</Link>
+                            <Link to="/admin/stock" className="header">My stock</Link>
                             <div className="description">How much you have in your stock</div>
                         </div>
                     </div>
                 </div>
                 <div className="ui relaxed divided list">
                     <div className="item">
-                        <i class="warehouse large middle aligned icon teal"></i>
+                        <i className="warehouse large middle aligned icon teal"></i>
                         <div className="content">
-                            <Link to="/" className="header">Archive</Link>
+                            <Link to="/admin/archive" className="header">Archive</Link>
                             <div className="description">You can store the old requests here</div>
                         </div>
                     </div>

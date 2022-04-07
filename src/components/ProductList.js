@@ -2,11 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { getProducts, addToCart } from "./actions";
 import { Link } from "react-router-dom";
+import Popup from 'reactjs-popup';
 
 const ProductList = (props) => {
 
     const [amount, setAmount] = React.useState("1");
 
+    const [open, setOpen] = React.useState(false);
+    const closeModal = () => setOpen(false);
     
 
 
@@ -41,9 +44,32 @@ const ProductList = (props) => {
     }
 
 
+    const renderCartList = ()=> {
+        return props.cart.map(cartItem => {
+            return (<div className="item">
+                <img src={cartItem.url} className="ui avatar image" />
+                <div className="content">
+                    <a className="header">{cartItem.productName}</a>
+                    <div className="description">{`price: ${cartItem.productPrice}`}</div>
+                </div>
+            </div>)
+        })
+    }
+
+
 
     const renderCartButton = (product)=> {
-        return (
+        if (product.stock === "0") {
+            return (
+                <div className="right floated content">
+                    <button className="ui red basic labeled icon button">
+                        <i className="cart icon" />
+                        Out of Stock
+                    </button>
+                </div>
+            )
+        } else {
+            return (
             <div className="right floated content">
                 <button onClick={()=>props.addToCart(product, amount)} className="ui teal labeled icon button">
                     <i className="cart icon" />
@@ -51,6 +77,21 @@ const ProductList = (props) => {
                 </button>
             </div>
         )
+        }
+        
+    }
+
+    const renderAmount = (product) => {
+        if(product.stock === "0") {
+            return null;
+        } else {
+            return (
+                <>
+                <label>Amount:</label>
+                <input onChange={(e)=>setAmount(e.target.value)} style={{"width":"50px"}} className="ui input" type="number" defaultValue="1" />
+                </>
+            )
+        }
     }
 
 
@@ -66,8 +107,7 @@ const ProductList = (props) => {
                         <div className="description">Price : {product.productPrice} SDG</div>
                     </div>
                     <div className="extra content" >
-                        <label>Amount:</label>
-                        <input onChange={(e)=>setAmount(e.target.value)} style={{"width":"50px"}} className="ui input" type="number" defaultValue="1" />
+                        {renderAmount(product)}
                         {renderCartButton(product)}<br/>
                         {renderAdmin(product)}
                     </div>
@@ -77,7 +117,35 @@ const ProductList = (props) => {
     }
 
 
-
+    const renderCartFloatingBtn = ()=> {
+        if(props.isSignedIn || props.cart.length <1) {
+            return null
+           
+        } else {
+             return (
+                <div>
+                    <button onClick={() => setOpen(o => !o)} style={{right: "10px", top: "40vh", position: "fixed"}} id="example1"  className="circular ui sticky icon teal button">
+                        {`(${props.cart.length})`}<i className=" large icon cart" />
+                    </button>
+                        <div className="popup-content">
+                        <Popup open={open} closeOnDocumentClick onClose={closeModal} 
+                        contentStyle={{backgroundColor:"whitesmoke",minWidth: "30vh"}}>
+                            <div className="popup-content">
+                            <a className="close" onClick={closeModal}>
+                                &times;
+                            </a>
+                            <div className="ui list">
+                                {renderCartList()}
+                            </div>
+                            
+                            </div>
+                        </Popup>
+                            
+                        </div>
+                </div>
+            )
+        }
+    }
 
     return (
         <div className="ui container center">
@@ -86,9 +154,7 @@ const ProductList = (props) => {
                 {renderCards()}
             </div>
             {renderCreate()}
-            {props.isSignedIn || props.cart.length <1?null:<Link to="/cart" style={{right: "10px", top: "200px", position: "fixed"}} id="example1"  className="circular ui sticky icon teal button">
-                {`(${props.cart.length})`}<i className=" large icon cart" />
-            </Link>}
+            {renderCartFloatingBtn()}
         </div>
     )
 }

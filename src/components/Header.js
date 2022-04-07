@@ -7,12 +7,12 @@ const Header = (props)=> {
     return (
         <div className="">
             <div className="ui inverted teal menu ">
-                <Link to="/" className="item">Home</Link>
+                <Link to={props.isSignedIn?"/admin/dashboard":"/"} className="item">Home</Link>
                 <div className="right menu">
-                    <Link to="/cart" className="item">
+                    {props.isSignedIn?null:<Link to="/cart" className="item">
                        {`cart (${props.cart.length})`}
                         <i className="ui icon cart" />
-                    </Link>
+                    </Link>}
                     {props.isSignedIn?<Link to="/admin/requests" className="item">View Requests</Link>:null}
                     <Link to="/admin" className="item">Admin</Link>
                 </div>
