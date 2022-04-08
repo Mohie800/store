@@ -76,15 +76,15 @@ const ReqShow = (props) => {
 
     const renderDelete = () => {
         if(props.isSignedIn){
-            return <div className="right content">
-                <button onClick={()=>aprove()} className="ui button teal labeled icon">
-                <i className="check circle icon"></i>
-                    Aprove Request
-                </button>
-                <Link to={`/admin/requests/delete/${props.request.id}`} className="ui button negative labeled icon">
+            return <div className="right floated content">
+                <Link to={`/admin/requests/delete/${props.request.id}`} className="ui button negative labeled icon ">
                     <i className="icon trash"/>
                     Delete Request
                 </Link>
+                <button onClick={()=>aprove()} className="ui button teal labeled icon right floated content">
+                    <i className="check circle icon "></i>
+                    Aprove Request
+                </button>
             </div>
         }
          

@@ -77,14 +77,14 @@ const AprovedShow = (props) => {
     const renderDelete = () => {
         if(props.isSignedIn){
             return <div className="right content">
-                <button onClick={()=>moveToArcive()} className="ui button teal labeled icon">
-                <i className="warehouse icon"></i>
-                    Move to archive
-                </button>
                 <Link to={`/admin/aproved/delete/${props.request.id}`} className="ui button negative labeled icon">
                     <i className="trash icon"></i>
                     Delete Request
                 </Link>
+                <button onClick={()=>moveToArcive()} className="ui button teal labeled icon right floated content">
+                    <i className="warehouse icon"></i>
+                    Move to archive
+                </button>
             </div>
         }
          

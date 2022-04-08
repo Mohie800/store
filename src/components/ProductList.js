@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getProducts, addToCart } from "./actions";
+import { getProducts, addToCart, removeFromCart } from "./actions";
 import { Link } from "react-router-dom";
 import Popup from 'reactjs-popup';
 
@@ -50,16 +50,22 @@ const ProductList = (props) => {
                 <img src={cartItem.url} className="ui avatar image" />
                 <div className="content">
                     <a className="header">{cartItem.productName}</a>
-                    <div className="description">{`price: ${cartItem.productPrice}`}</div>
+                    <div className="description">{`${cartItem.productPrice} SDG  amount: ${cartItem.amount}`}</div>
+                    <div className="right floated content">
+                        <button onClick={()=>props.removeFromCart(cartItem)} className="ui teal basic button">Remove</button>
+                    </div>
                 </div>
             </div>)
         })
     }
 
 
-
+    const handleAddToCart = async (product)=> {
+        await props.addToCart(product, amount)
+        setAmount("1")
+    }
     const renderCartButton = (product)=> {
-        if (product.stock === "0") {
+        if (product.stock === "0" && !props.isSignedIn) {
             return (
                 <div className="right floated content">
                     <button className="ui red basic labeled icon button">
@@ -68,10 +74,10 @@ const ProductList = (props) => {
                     </button>
                 </div>
             )
-        } else {
+        } else if(!props.isSignedIn) {
             return (
             <div className="right floated content">
-                <button onClick={()=>props.addToCart(product, amount)} className="ui teal labeled icon button">
+                <button onClick={()=>handleAddToCart(product)} className="ui teal labeled icon button">
                     <i className="cart icon" />
                     Add to cart
                 </button>
@@ -84,7 +90,7 @@ const ProductList = (props) => {
     const renderAmount = (product) => {
         if(product.stock === "0") {
             return null;
-        } else {
+        } else if(!props.isSignedIn) {
             return (
                 <>
                 <label>Amount:</label>
@@ -124,23 +130,25 @@ const ProductList = (props) => {
         } else {
              return (
                 <div>
-                    <button onClick={() => setOpen(o => !o)} style={{right: "10px", top: "40vh", position: "fixed"}} id="example1"  className="circular ui sticky icon teal button">
+                    <button onClick={() => setOpen(o => !o)} style={{right: "10px", top: "40vh",borderColor: "black", position: "fixed"}} className="circular ui sticky icon teal button">
                         {`(${props.cart.length})`}<i className=" large icon cart" />
                     </button>
                         <div className="popup-content">
-                        <Popup open={open} closeOnDocumentClick onClose={closeModal} 
-                        contentStyle={{backgroundColor:"whitesmoke",minWidth: "30vh"}}>
-                            <div className="popup-content">
-                            <a className="close" onClick={closeModal}>
-                                &times;
-                            </a>
-                            <div className="ui list">
-                                {renderCartList()}
-                            </div>
-                            
-                            </div>
-                        </Popup>
-                            
+                            <Popup open={open} closeOnDocumentClick onClose={closeModal} 
+                                contentStyle={{backgroundColor:"whitesmoke",minWidth: "30vh"}}>
+                                <div className="ui segment">
+                                    <a className="close" onClick={closeModal}>
+                                        &times;
+                                    </a>
+                                    <div className="ui large list">
+                                        {renderCartList()}
+                                    </div>
+                                    <Link to="/cart" className="ui teal labeled icon button">
+                                        <i className="icon cart" />
+                                        Go to Cart
+                                    </Link>
+                                </div>
+                            </Popup>
                         </div>
                 </div>
             )
@@ -167,4 +175,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getProducts, addToCart })(ProductList);
+export default connect(mapStateToProps, { getProducts, addToCart,removeFromCart })(ProductList);
