@@ -51,7 +51,7 @@ const ProductList = (props) => {
                 <div className="content">
                     <a className="header">{cartItem.productName}</a>
                     <div className="description">{`${cartItem.productPrice} SDG  amount: ${cartItem.amount}`}</div>
-                    <div className="right floated content">
+                    <div className=" content description">
                         <button onClick={()=>props.removeFromCart(cartItem)} className="ui teal basic button">Remove</button>
                     </div>
                 </div>
@@ -140,7 +140,7 @@ const ProductList = (props) => {
                                     <a className="close" onClick={closeModal}>
                                         &times;
                                     </a>
-                                    <div className="ui large list">
+                                    <div className="ui celled big list">
                                         {renderCartList()}
                                     </div>
                                     <Link to="/cart" className="ui teal labeled icon button">

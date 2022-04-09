@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getArchive,deleteArchive } from "../actions";
-import server from "../../api/server";
 import history from "../../history";
 
 const ArcShow = (props) => {
@@ -83,18 +82,42 @@ const ArcShow = (props) => {
          
     }
 
+    const renderAll = ()=> {
+        if(props.isSignedIn) {
+            return (
+                <div className="ui container">
+                    {renderReqDetails()}
+                    <div className="ui segment">
+                        <h2 className="ui header">Request:</h2>
+                        <div className="ui relaxed divided list">
+                            {mapReq()}
+                        </div>
+                    </div>
+                    {renderDelete()}
+                </div>
+            )
+        } else {
+            return (
+                <div className="ui container">
+                  <h1>Unautherized</h1>
+                  <div className="ui placeholder segment">
+                    <div className="ui header centered">
+                      Please sign in with the correct creds
+                    </div>
+                    <Link to="/admin" className="ui teal button">
+                      Sign In
+                    </Link>
+                  </div>
+                </div>
+              );
+        }
+    }
+
 
     return (
-        <div className="container">
-            {renderReqDetails()}
-            <div className="ui segment">
-                <h2 className="ui header">Request:</h2>
-                <div className="ui relaxed divided list">
-                    {mapReq()}
-                </div>
-            </div>
-            {renderDelete()}
-        </div>
+        <>
+        {renderAll()}
+        </>
     )
 }
 

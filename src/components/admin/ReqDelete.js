@@ -36,6 +36,20 @@ const ReqDelete = (props) => {
             actions={actions}
             onDismiss={()=> history.push(`/admin/requests/${props.id()}`)}
              />
+        } else {
+            return (
+                <div className="ui container">
+                    <h1>Unautherized</h1>
+                    <div className="ui placeholder segment">
+                        <div className="ui header centered">
+                        Please sign in with the correct creds
+                        </div>
+                        <Link to="/admin" className="ui teal button">
+                        Sign In
+                        </Link>
+                    </div>
+                </div>
+            )
         }
     }
 

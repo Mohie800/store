@@ -20,13 +20,25 @@ const Archive = (props) => {
                         <div className="content" >
                             <Link to={`/admin/archive/${req.id}`} className="header">From {req.name}</Link>
                             <div className="dicription">
-                            <i className="phone icon"/>{req.number}</div>
+                            <i className="dollar sign icon"/>{req.payment}</div>
                         </div>
                     </div>
                 )
             })
         } else {
-            return <div className="header">Unautherized</div>
+            return (
+                <div className="ui container">
+                  <h1>Unautherized</h1>
+                  <div className="ui placeholder segment">
+                    <div className="ui header centered">
+                      Please sign in with the correct creds
+                    </div>
+                    <Link to="/admin" className="ui teal button">
+                      Sign In
+                    </Link>
+                  </div>
+                </div>
+              );
         }
     }
 

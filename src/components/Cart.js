@@ -5,6 +5,10 @@ import { removeFromCart } from "./actions";
 
 const Cart = (props)=> {
 
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+      }, [])
+
 
 
     const renderPure = ()=> {
@@ -33,7 +37,9 @@ const Cart = (props)=> {
     }
 
     
-
+    //return (
+        
+    //   );
 
 
     return (
@@ -44,7 +50,18 @@ const Cart = (props)=> {
             {props.carts.length>0?
              <div style={{textAlign: "right"}} className="right floated content">
                 <Link to="/checkout" className="ui teal button">checkout</Link>
-            </div>:<h1>The cart is empty!</h1>
+            </div>:<>
+                <div className="ui container"><br />
+                    <div className="ui placeholder segment"><br />
+                        <div className="ui header centered">
+                        The cart is empty!
+                        </div>
+                        <Link to="/" className="ui teal button">
+                        Continue shopping
+                        </Link>
+                    </div>
+                </div>
+            </>
             }
             
         </div>

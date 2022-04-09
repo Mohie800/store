@@ -1,6 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { uploadProduct } from "../actions";
 import { UploadClient } from '@uploadcare/upload-client';
 
@@ -49,6 +50,20 @@ const AddProduct = (props)=> {
                 
                 </form>
             )
+        } else {
+            return (
+                <div className="ui container">
+                  <h1>Unautherized</h1>
+                  <div className="ui placeholder segment">
+                    <div className="ui header centered">
+                      Please sign in with the correct creds
+                    </div>
+                    <Link to="/admin" className="ui teal button">
+                      Sign In
+                    </Link>
+                  </div>
+                </div>
+              );
         }
     }
 

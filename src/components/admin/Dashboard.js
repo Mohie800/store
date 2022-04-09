@@ -53,6 +53,18 @@ const Dashboard = (props) => {
                 </div>
             </div>
         )
+    } else {
+        return(
+            <div className="ui container">
+                <h1>Unautherized</h1>
+                <div className="ui placeholder segment">
+                    <div className="ui header centered">
+                        Please sign in with the correct creds
+                    </div>
+                    <Link to="/admin" className="ui teal button">Sign In</Link>
+                </div>
+            </div>
+        )
     }
 }
 

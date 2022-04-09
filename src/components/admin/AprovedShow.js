@@ -90,18 +90,42 @@ const AprovedShow = (props) => {
          
     }
 
+    const renderAll = ()=> {
+        if (props.isSignedIn) {
+            return (
+                <div className="ui container"><br />
+                    {renderReqDetails()}
+                    <div className="ui segment">
+                        <h2 className="ui header">Request:</h2>
+                        <div className="ui relaxed divided list">
+                            {mapReq()}
+                        </div>
+                    </div>
+                    {renderDelete()}
+                </div>
+            )
+        } else {
+            return (
+                <div className="ui container">
+                  <h1>Unautherized</h1>
+                  <div className="ui placeholder segment">
+                    <div className="ui header centered">
+                      Please sign in with the correct creds
+                    </div>
+                    <Link to="/admin" className="ui teal button">
+                      Sign In
+                    </Link>
+                  </div>
+                </div>
+              );
+        }
+    }
+
 
     return (
-        <div className="ui container"><br />
-            {renderReqDetails()}
-            <div className="ui segment">
-                <h2 className="ui header">Request:</h2>
-                <div className="ui relaxed divided list">
-                    {mapReq()}
-                </div>
-            </div>
-            {renderDelete()}
-        </div>
+        <>
+        {renderAll()}
+        </>
     )
 }
 

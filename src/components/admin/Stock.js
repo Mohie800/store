@@ -52,15 +52,37 @@ const Stock = (props) => {
     }
 
 
-
+    const renderAll = ()=> {
+        if(props.isSignedIn) {
+            return (
+                <div className="ui container center">
+                    <h2>Stock</h2>
+                    <div className="ui link cards centered" >
+                        {renderCards()}
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div className="ui container">
+                  <h1>Unautherized</h1>
+                  <div className="ui placeholder segment">
+                    <div className="ui header centered">
+                      Please sign in with the correct creds
+                    </div>
+                    <Link to="/admin" className="ui teal button">
+                      Sign In
+                    </Link>
+                  </div>
+                </div>
+              );
+        }
+    }
 
     return (
-        <div className="ui container center">
-            <h2>{props.isSignedIn?"Stock": "Unautherized"}</h2>
-            <div className="ui link cards centered" >
-                {renderCards()}
-            </div>
-        </div>
+        <>
+        {renderAll()}
+        </>
     )
 }
 

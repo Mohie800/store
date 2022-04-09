@@ -67,7 +67,7 @@ const Checkout = (props) => {
                                     <label>Adress</label>
                                     <Field type="text" name="adress" component="input" />
                                     {`Your total payment is: ${sum} SDG`}
-                                    <button className="ui fluid large teal submit button">Checkout</button>
+                                    <button className="ui fluid large teal submit button">Checkout  (Pay {sum} SDG)</button>
                                 </div>
                             </div>
                         </form>
