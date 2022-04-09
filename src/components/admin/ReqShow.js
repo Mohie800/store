@@ -73,14 +73,14 @@ const ReqShow = (props) => {
             className="ui button negative labeled icon "
           >
             <i className="icon trash" />
-            Delete Request
+            Delete
           </Link>
           <button
             onClick={() => aprove()}
             className="ui button teal labeled icon right floated content"
           >
             <i className="check circle icon "></i>
-            Aprove Request
+            Aprove
           </button>
         </div>
       );

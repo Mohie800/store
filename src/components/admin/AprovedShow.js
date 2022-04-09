@@ -79,7 +79,7 @@ const AprovedShow = (props) => {
             return <div className="right content">
                 <Link to={`/admin/aproved/delete/${props.request.id}`} className="ui button negative labeled icon">
                     <i className="trash icon"></i>
-                    Delete Request
+                    Delete
                 </Link>
                 <button onClick={()=>moveToArcive()} className="ui button teal labeled icon right floated content">
                     <i className="warehouse icon"></i>
