@@ -52,12 +52,12 @@ const Cart = (props)=> {
                 <Link to="/checkout" className="ui teal button">checkout</Link>
             </div>:<>
                 <div className="ui container"><br />
-                    <div className="ui placeholder segment"><br />
-                        <div className="ui header centered">
-                        The cart is empty!
-                        </div>
+                    <div style={{textAlign:"center"}} className="ui placeholder segment"><br />
+                        <h1 className="ui centered">
+                         The cart is empty!
+                        </h1>
                         <Link to="/" className="ui teal button">
-                        Continue shopping
+                         Continue shopping
                         </Link>
                     </div>
                 </div>

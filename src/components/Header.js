@@ -14,7 +14,6 @@ const Header = (props)=> {
                         <i className="ui icon cart" />
                     </Link>}
                     {props.isSignedIn?<Link to="/admin/requests" className="item">View Requests</Link>:null}
-                    <Link to="/admin" className="item">Admin</Link>
                 </div>
             </div>
         </div>
