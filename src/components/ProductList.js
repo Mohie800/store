@@ -168,7 +168,9 @@ const ProductList = (props) => {
         } else {
             return (
                 <>
-                    <h2>Products</h2>
+                    <div className=""><br />
+                        <h2 className="ui teal big button">Products</h2>
+                    </div><br />
                     <div className="ui link cards centered" >
                         {renderCards()}
                     </div>

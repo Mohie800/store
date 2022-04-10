@@ -45,7 +45,10 @@ const Archive = (props) => {
 
 
     return (
-        <div className="ui relaxed divided list">{renderCards()}</div>
+        <div className="ui container segment">
+            <div className="ui relaxed divided list">{renderCards()}</div>
+        </div>
+        
     )
 }
 
