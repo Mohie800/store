@@ -154,15 +154,34 @@ const ProductList = (props) => {
             )
         }
     }
+    const renderAll = ()=> {
+        if (!props.products) {
+            <div className="ui icon message">
+                <i className="notched circle loading icon"></i>
+                <div className="content">
+                    <div className="header">
+                    Just one second
+                    </div>
+                    <p>We're fetching that content for you.</p>
+                </div>
+            </div>
+        } else {
+            return (
+                <>
+                    <h2>Products</h2>
+                    <div className="ui link cards centered" >
+                        {renderCards()}
+                    </div>
+                    {renderCreate()}
+                    {renderCartFloatingBtn()}
+                </>
+            )
+        }
+    }
 
     return (
         <div className="ui container center">
-            <h2>Products</h2>
-            <div className="ui link cards centered" >
-                {renderCards()}
-            </div>
-            {renderCreate()}
-            {renderCartFloatingBtn()}
+            {renderAll()}
         </div>
     )
 }

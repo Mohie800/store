@@ -22,6 +22,7 @@ import Stock from "./admin/Stock";
 import StockEdit from "./admin/StockEdit";
 import Archive from "./admin/Archive";
 import ArcShow from "./admin/ArcShow";
+import "./App.css"
 
 const App = ()=> {
 
@@ -65,7 +66,7 @@ const App = ()=> {
 
 
     return (
-        <div>
+        <div className="App">
             <CoustomRouter history={history} >
                 <Header />
                 <Routes >

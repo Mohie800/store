@@ -44,7 +44,7 @@ const Aproved = (props) => {
   };
 
   return (
-    <div className="ui container">
+    <div className="ui container segment">
       <br />
       <div className="ui relaxed divided list">{renderCards()}</div>
     </div>

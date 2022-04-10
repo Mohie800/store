@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Dashboard = (props) => {
     if (props.isSignedIn){
         return (
-            <div className="ui container"><br></br>
+            <div className="ui container segment"><br></br>
                 <div className="ui relaxed divided list">
                     <div className="item">
                         <i className="inbox large middle aligned icon teal"></i>
