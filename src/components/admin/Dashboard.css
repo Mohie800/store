@@ -1,5 +1,5 @@
 .col {
-    margin: 15px;
+    margin: 5px;
     border-radius: 25px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     
@@ -9,5 +9,11 @@
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     margin-bottom: 5px;
+    border-left: 5px;
+    right: 0px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.li {
+    justify-self: center;
 }

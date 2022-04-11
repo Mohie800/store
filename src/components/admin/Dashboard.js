@@ -2,18 +2,44 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
-import {Pie} from "react-chartjs-2";
-import {Chart, ArcElement} from 'chart.js';
-Chart.register(ArcElement);
+import {Bar, Line, Pie} from "react-chartjs-2";
+import { getProducts, getRequests, getAproveds, getArchives } from "../actions";
+import {Chart} from 'chart.js/auto';
+import Aproved from "./Aproved";
 
 
 
 const Dashboard = (props) => {
+
+    let productsNames = [];
+    let stockArray = [];
+
+    
     const ref = React.useRef()
 
     const [active, setActive] = React.useState(false)
 
+    const newRequests = props.newRequests.length;
+    const archived = props.archive.length;
+    const aproved =props.Aproved.length;
+
+    const names = props.products.map(p => {
+        return [...productsNames, p.productName].flat(10)
+    });
+
+    const stock = props.products.map(p => {
+        return [...stockArray, p.stock].flat(10)
+    })
+
+    const inStock = stock.filter(s => s > 0)
+    const outOfStock = stock.filter(s => s < 1)
+
     React.useEffect(() => {
+        props.getProducts()
+        props.getRequests()
+        props.getAproveds()
+        props.getArchives()
+        
         const checkIfClickedOutside = e => {
           // If the menu is open and the clicked target is not within the menu,
           // then close the menu
@@ -88,15 +114,29 @@ const Dashboard = (props) => {
       const data = {
         maintainAspectRatio: false,
         responsive: false,
-        labels: ["a", "b", "c"],
+        labels: ["New", "Aproved", "Archived"],
         datasets: [
           {
-            data: [3, 10, 70],
+            data: [newRequests, aproved, archived],
             backgroundColor: ["#a333c8", "#fbbd08", "#21ba45"],
             hoverBackgroundColor: ["purple", "yellow", "yellowGreen"]
           }
         ]
       };
+
+      const stockData = {
+        maintainAspectRatio: false,
+        responsive: false,
+        labels: ["In Stock", "Out of Stock"],
+        datasets: [
+          {
+            data: [inStock.length, outOfStock.length],
+            backgroundColor: ["#21ba45", "#db2828"],
+            hoverBackgroundColor: ["yellowGreen", "red"]
+          }
+        ]
+      };
+      
 
       const pieOptions = {
         legend: {
@@ -123,22 +163,40 @@ const Dashboard = (props) => {
 
       let chartInstance
 
+
+      const lineData = {
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        datasets: [
+          {
+            label: "New Requests",
+            data: [33, 53, 85, 41, 44, 65],
+            fill: true,
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "#a333c8"
+          },
+          {
+            label: "Aproved requests",
+            data: [33, 25, 35, 51, 54, 76],
+            fill: false,
+            borderColor: "#fbbd08"
+          },
+          {
+            label: "Arcived requests",
+            data: [33, 25, 35, 51, 54, 76],
+            fill: false,
+            borderColor: "#21ba45"
+          }
+        ]
+      }
+
     const renderRequestsStatus = ()=> {
         return (
             <div className="ui grid">
-                <div className="ten wide column"></div>
-                <div className="six wide column col1">
+                <div className="nine wide column col1">
+                    <Line data={lineData} />
+                </div>
+                <div className="six wide column col1 right floated center aligned">
                     <h1 className="ui header center aligned ">Requests Status</h1>
-                    <div className="ui list centered " style={{display: "inline-block"}}><div className="ui purple label" >
-                        New Requests
-                    </div>
-                    <div className="ui yellow label" >
-                        New Requests
-                    </div>
-                    <div className="ui green label" >
-                        New Requests
-                    </div>
-                    </div>
                     <Pie data={data} options={pieOptions} ref={input => {
                     chartInstance = input;
                     }}/>
@@ -147,17 +205,37 @@ const Dashboard = (props) => {
         )
     }
 
+    const barData =  {
+        labels: names,
+        datasets: [
+            {
+            label: 'Products',
+            backgroundColor: 'rgba(75,192,192,1)',
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 2,
+            data: stock
+            }
+        ]
+    }
+
     const renderStockStatus = ()=> {
         return (
             <div className="ui grid">
-                <div className="ten wide column"></div>
-                <div className="six wide column col1">
-                    <Pie data={data} options={pieOptions} ref={input => {
+                <div className="nine wide column col1">
+                    <Bar data={barData} />
+                </div>
+                <div className="six wide column right floated col1">
+                    <h1 className="ui header center aligned ">Stock Status</h1>
+                    <Pie data={stockData} options={pieOptions} ref={input => {
                     chartInstance = input;
                     }}/>
                 </div>
             </div>
         )
+    }
+
+    const renderAll = ()=> {
+
     }
     
 
@@ -220,8 +298,12 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        isSignedIn: state.authState.isSignedIn
+        isSignedIn: state.authState.isSignedIn,
+        products: Object.values(state.products),
+        newRequests: Object.values(state.requests),
+        Aproved: Object.values(state.aproved),
+        archive: Object.values(state.archive)
     }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, {getProducts, getRequests, getAproveds, getArchives})(Dashboard);
