@@ -1,0 +1,13 @@
+.col {
+    margin: 15px;
+    border-radius: 25px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    
+}
+
+.col1 {
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    margin-bottom: 5px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
