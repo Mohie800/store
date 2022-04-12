@@ -21,11 +21,10 @@ const ProductList = (props) => {
     const renderCreate = ()=> {
         if (props.isSignedIn) {
             return (
-                <div style={{textAlign: "right"}}>
+                <div style={{textAlign: "right", marginBottom: "5px"}}>
                     <Link to="/products/add" className="ui button primary">
                         Add Product
                     </Link>
-                    <Link to="/admin/requests" className="ui button teal">View Requests</Link>
                 </div>
             )
         }
@@ -170,11 +169,11 @@ const ProductList = (props) => {
                 <>
                     <div className=""><br />
                         <h2 className="ui teal big button">Products</h2>
-                    </div><br />
+                    </div><br />{renderCreate()}
                     <div className="ui link cards centered" >
                         {renderCards()}
                     </div>
-                    {renderCreate()}
+                    
                     {renderCartFloatingBtn()}
                 </>
             )

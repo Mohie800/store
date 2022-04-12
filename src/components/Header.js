@@ -13,7 +13,7 @@ const Header = (props)=> {
                        {`cart (${props.cart.length})`}
                         <i className="ui icon cart" />
                     </Link>}
-                    {props.isSignedIn?<Link to="/admin/requests" className="item">View Requests</Link>:null}
+                    {props.isSignedIn?<Link to="/admin/requests" className="item">View New Requests</Link>:null}
                 </div>
             </div>
         </div>
