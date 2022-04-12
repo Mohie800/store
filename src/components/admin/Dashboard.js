@@ -303,7 +303,7 @@ const Dashboard = (props) => {
                         <div className="five column centered row">
                             <div style={{backgroundColor: "green"}} className="column col center totals aligned">
                                 <div className="ui mini statistic inverted">
-                                    <h3 className="value" >{sum} SDG </h3>
+                                    <div className="value" >{sum} SDG </div>
                                     <div className="label">Total sales</div>
                                 </div>
                             </div>
