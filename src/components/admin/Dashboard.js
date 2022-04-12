@@ -307,19 +307,19 @@ const Dashboard = (props) => {
                                     <div className="label">Total sales</div>
                                 </div>
                             </div>
-                            <div style={{backgroundColor: "red"}} className="column col center aligned">
+                            <div style={{backgroundColor: "red"}} className="column col center aligned totals">
                                 <div className="ui mini statistic inverted">
                                     <div className="value" >{totalRequests} </div>
                                     <div className="label">Total requests</div>
                                 </div>
                             </div>
-                            <div style={{backgroundColor: "purple"}} className="column col center aligned">
+                            <div style={{backgroundColor: "purple"}} className="column col center aligned totals">
                                 <div className="ui mini statistic inverted">
                                     <div className="value" >{totalProducts} </div>
                                     <div className="label">Total products</div>
                                 </div>
                             </div>
-                            <div style={{backgroundColor: "yellowGreen"}} className="column col center aligned">
+                            <div style={{backgroundColor: "yellowGreen"}} className="column col center aligned totals">
                                 <div className="ui mini statistic inverted">
                                     <div className="value" >{totalStock} </div>
                                     <div className="label">total Stock</div>
