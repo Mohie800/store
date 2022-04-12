@@ -2,10 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Dashboard.css";
-import {Bar, Line, Pie} from "react-chartjs-2";
-import { getProducts, getRequests, getAproveds, getArchives } from "../actions";
+import {Bar, Line, Pie, Doughnut} from "react-chartjs-2";
+import { getProducts, getRequests, getAproveds, getArchives, getNew,getAproveCount } from "../actions";
+import { apr } from "./monthData";
 import {Chart} from 'chart.js/auto';
-import Aproved from "./Aproved";
+
 
 
 
@@ -17,11 +18,15 @@ const Dashboard = (props) => {
     
     const ref = React.useRef()
 
-    const [active, setActive] = React.useState(false)
+    const [active, setActive] = React.useState("")
 
     const newRequests = props.newRequests.length;
     const archived = props.archive.length;
-    const aproved =props.Aproved.length;
+    const aproved = props.Aproved.length;
+
+    const totalRequests = newRequests + archived + aproved;
+    const totalProducts = props.products.length;
+    
 
     const names = props.products.map(p => {
         return [...productsNames, p.productName].flat(10)
@@ -31,20 +36,56 @@ const Dashboard = (props) => {
         return [...stockArray, p.stock].flat(10)
     })
 
+    const totalStock = stock.reduce((accumulator, value) => {
+        return accumulator + Number(value);
+      }, 0);
+
     const inStock = stock.filter(s => s > 0)
     const outOfStock = stock.filter(s => s < 1)
+
+    let counterNew = {}
+    const monthes = apr(props.new)
+        
+    if (monthes){monthes.forEach(function(obj) {
+        var key = JSON.stringify(obj)
+        counterNew[key] = (counterNew[key] || 0) + 1
+    })}
+
+    let counterApr = {}
+    const monthes2 = apr(props.aproveCount)
+    if (monthes2){monthes2.forEach(function(obj) {
+        var key = JSON.stringify(obj)
+        counterApr[key] = (counterApr[key] || 0) + 1
+    })}
+
+    let counterArc = {}
+    const monthes3 = apr(props.archive)
+    if (monthes3){monthes3.forEach(function(obj) {
+        var key = JSON.stringify(obj)
+        counterArc[key] = (counterArc[key] || 0) + 1
+    })}
+
+    const supSum = props.archive.map(p => {
+        return p.payment
+    } )
+
+    const sum = supSum.reduce((accumulator, value) => {
+        return accumulator + value;
+      }, 0);
 
     React.useEffect(() => {
         props.getProducts()
         props.getRequests()
         props.getAproveds()
         props.getArchives()
-        
+        props.getNew()
+        props.getAproveCount()
+       
         const checkIfClickedOutside = e => {
           // If the menu is open and the clicked target is not within the menu,
           // then close the menu
           if (active && ref.current && !ref.current.contains(e.target)) {
-            setActive(false)
+            setActive("")
           }
         }
     
@@ -58,7 +99,7 @@ const Dashboard = (props) => {
 
       const sidebar = ()=> {
           return(
-              <div ref={ref} className={`ui vertical menu sidebar left overlay ${active?"visible": ""}`}>
+              <div ref={ref} className={`ui vertical menu sidebar left overlay ${active}`}>
                 <div className="ui container"><br></br>
                     <div className="">
                         <div className="item">
@@ -105,6 +146,15 @@ const Dashboard = (props) => {
                             </div>
                         </div>
                     </div>
+                    <div className="">
+                        <div className="item">
+                            <i className="plus square large middle aligned icon teal"></i>
+                            <div className="content">
+                                <Link to="/products/add" className="header">Add Product</Link>
+                                {/* <div className="description">You can store the old requests here</div> */}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
           )
@@ -112,14 +162,14 @@ const Dashboard = (props) => {
 
 
       const data = {
-        maintainAspectRatio: false,
-        responsive: false,
+        maintainAspectRatio: true,
+        responsive: true,
         labels: ["New", "Aproved", "Archived"],
         datasets: [
           {
             data: [newRequests, aproved, archived],
             backgroundColor: ["#a333c8", "#fbbd08", "#21ba45"],
-            hoverBackgroundColor: ["purple", "yellow", "yellowGreen"]
+            hoverBackgroundColor: ["purple", "yellow", "yellowGreen"],
           }
         ]
       };
@@ -156,10 +206,13 @@ const Dashboard = (props) => {
         },
         elements: {
           arc: {
-            borderWidth: 0
+            borderWidth: 2
           }
         }
       };
+
+
+    
 
       let chartInstance
 
@@ -169,20 +222,20 @@ const Dashboard = (props) => {
         datasets: [
           {
             label: "New Requests",
-            data: [33, 53, 85, 41, 44, 65],
+            data: [ counterNew[1], counterNew[2], counterNew[3], counterNew[4], counterNew[5], counterNew[6]],
             fill: true,
             backgroundColor: "rgba(75,192,192,0.2)",
             borderColor: "#a333c8"
           },
           {
             label: "Aproved requests",
-            data: [33, 25, 35, 51, 54, 76],
+            data: [ counterApr[1], counterApr[2], counterApr[3], counterApr[4], counterApr[5], counterApr[6]],
             fill: false,
             borderColor: "#fbbd08"
           },
           {
             label: "Arcived requests",
-            data: [33, 25, 35, 51, 54, 76],
+            data: [ counterArc[1], counterArc[2], counterArc[3], counterArc[4], counterArc[5], counterArc[6]],
             fill: false,
             borderColor: "#21ba45"
           }
@@ -226,23 +279,21 @@ const Dashboard = (props) => {
                 </div>
                 <div className="six wide column right floated col1">
                     <h1 className="ui header center aligned ">Stock Status</h1>
-                    <Pie data={stockData} options={pieOptions} ref={input => {
+                    <Doughnut data={stockData} options={pieOptions} ref={input => {
                     chartInstance = input;
                     }}/>
                 </div>
             </div>
         )
     }
+    
 
-    const renderAll = ()=> {
-
-    }
     
 
     if (props.isSignedIn){
         return (
             <div ><br />
-                <div on onClick={()=>setActive(!active)} className=" ui teal basic button ">
+                <div onClick={()=>setActive("visible")} className=" ui teal basic button ">
                     <i className="sidebar icon"/>
                     Menu
                 </div>
@@ -251,27 +302,27 @@ const Dashboard = (props) => {
                     <div className="ui grid">
                         <div className="five column centered row ">
                             <div style={{backgroundColor: "green"}} className="column col center aligned">
-                                <div className="ui statistic inverted">
-                                    <div className="value" >5000 </div>
+                                <div className="ui small statistic inverted">
+                                    <div className="value" >{sum} </div>
                                     <div className="label">Total sales</div>
                                 </div>
                             </div>
                             <div style={{backgroundColor: "red"}} className="column col center aligned">
-                                <div className="ui statistic inverted">
-                                    <div className="value" >244 </div>
+                                <div className="ui small statistic inverted">
+                                    <div className="value" >{totalRequests} </div>
                                     <div className="label">Total requests</div>
                                 </div>
                             </div>
                             <div style={{backgroundColor: "purple"}} className="column col center aligned">
-                                <div className="ui statistic inverted">
-                                    <div className="value" >27 </div>
+                                <div className="ui small statistic inverted">
+                                    <div className="value" >{totalProducts} </div>
                                     <div className="label">Total products</div>
                                 </div>
                             </div>
                             <div style={{backgroundColor: "yellowGreen"}} className="column col center aligned">
-                                <div className="ui statistic inverted">
-                                    <div className="value" >450 </div>
-                                    <div className="label">Total products</div>
+                                <div className="ui small statistic inverted">
+                                    <div className="value" >{totalStock} </div>
+                                    <div className="label">total Stock</div>
                                 </div>
                             </div>
                         </div>
@@ -302,8 +353,10 @@ const mapStateToProps = (state) => {
         products: Object.values(state.products),
         newRequests: Object.values(state.requests),
         Aproved: Object.values(state.aproved),
-        archive: Object.values(state.archive)
+        archive: Object.values(state.archive),
+        new: state.new[0],
+        aproveCount: Object.values(state.aproveCount)
     }
 }
 
-export default connect(mapStateToProps, {getProducts, getRequests, getAproveds, getArchives})(Dashboard);
+export default connect(mapStateToProps, {getProducts, getRequests, getAproveds, getArchives, getNew, getAproveCount})(Dashboard);

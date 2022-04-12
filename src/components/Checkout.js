@@ -43,7 +43,8 @@ const Checkout = (props) => {
 
 
     const onSubmit = async (values)=> {
-        await server.post("/requests",{...values,payment:sum, req: requstedPrducts, id:Math.random().toString(36).substr(2, 9)})
+        await server.post("/requests",{...values,payment:sum, req: requstedPrducts, date: new Date().toUTCString(), month: new Date().getMonth()+1, id:Math.random().toString(36).substr(2, 9)})
+        server.post("/new", {name: values.name, date: new Date().toUTCString(), month: new Date().getMonth()+1})
         props.clearCart()
         history.push("/thanks")
     }

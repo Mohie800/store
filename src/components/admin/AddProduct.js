@@ -31,7 +31,7 @@ const AddProduct = (props)=> {
 
 
     const FileInput = ()=> {
-        return <input type="file" onChange={(e)=>onImageChange(e)}/>
+        return <input style={{display: "none"}} id="fileInput" type="file" onChange={(e)=>onImageChange(e)}/>
     }
 
     
@@ -44,7 +44,7 @@ const AddProduct = (props)=> {
                     <Field name="productName" component="input" type="text" autoComplete="off" autoCorrect="off" spellCheck="off"/>
                     <label>Product prise</label>
                     <Field name="productPrice" component="input" type="number"/>
-                    <label>Upload image</label>
+                    <label className="ui button brown" htmlFor="fileInput">Upload image</label><br /><br />
                     <Field name="image" component={FileInput} />
                     <button className="ui button primary" >OK</button>
                 

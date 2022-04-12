@@ -171,3 +171,21 @@ export const deleteArchive = (id) => async dispath => {
     })
     history.push("/admin/archive")
 }
+
+export const getNew = () => async dispath => {
+    const response = await server.get("/new");
+
+        dispath({
+            type: "GET_NEW",
+            payload: response.data
+        })
+}
+
+export const getAproveCount = () => async dispath => {
+    const response = await server.get("/aprovecount");
+
+        dispath({
+            type: "GET_APR_COUNT",
+            payload: response.data
+        })
+}

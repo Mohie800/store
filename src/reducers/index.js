@@ -6,6 +6,8 @@ import cartReducer from "./cartReducer";
 import requestsReducer from "./requestsReducer";
 import aproveReducer from "./aproveReducer";
 import archiveReducer from "./archiveReducer";
+import newCount from "./newCount";
+import aproveCount from "./aproveCount";
 
 export default combineReducers({
     form: reducer,
@@ -14,5 +16,7 @@ export default combineReducers({
     cart: cartReducer,
     requests: requestsReducer,
     aproved: aproveReducer,
-    archive: archiveReducer
+    archive: archiveReducer,
+    new: newCount,
+    aproveCount: aproveCount
 })

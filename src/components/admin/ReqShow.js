@@ -61,6 +61,7 @@ const ReqShow = (props) => {
   const aprove = async () => {
     await server.post("/aproved", { ...props.request });
     props.deleteRequest(props.request.id);
+    server.post("/aprovecount", {name: props.request.name, date: new Date().toUTCString(), month: new Date().getMonth()+1})
     history.push("/admin/requests");
   };
 
