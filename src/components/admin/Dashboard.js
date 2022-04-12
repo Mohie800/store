@@ -246,7 +246,10 @@ const Dashboard = (props) => {
         return (
             <div className="ui grid">
                 <div className="nine wide column col1 reqs">
-                    <Line data={lineData} />
+                    <Line data={lineData} options={{
+                        maintainAspectRatio : false
+                        }}
+                    />
                 </div>
                 <div className="reqs1 six wide column col1 right floated center aligned">
                     <h1 className="ui header center aligned ">Requests Status</h1>
