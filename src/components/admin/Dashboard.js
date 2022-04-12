@@ -245,10 +245,10 @@ const Dashboard = (props) => {
     const renderRequestsStatus = ()=> {
         return (
             <div className="ui grid">
-                <div className="nine wide column col1">
+                <div className="nine wide column col1 reqs">
                     <Line data={lineData} />
                 </div>
-                <div className="six wide column col1 right floated center aligned">
+                <div className="reqs1 six wide column col1 right floated center aligned">
                     <h1 className="ui header center aligned ">Requests Status</h1>
                     <Pie data={data} options={pieOptions} ref={input => {
                     chartInstance = input;
@@ -274,10 +274,10 @@ const Dashboard = (props) => {
     const renderStockStatus = ()=> {
         return (
             <div className="ui grid">
-                <div className="nine wide column col1">
+                <div className="nine wide column reqs col1">
                     <Bar data={barData} />
                 </div>
-                <div className="six wide column right floated col1">
+                <div className="six wide column right floated reqs1 col1">
                     <h1 className="ui header center aligned ">Stock Status</h1>
                     <Doughnut data={stockData} options={pieOptions} ref={input => {
                     chartInstance = input;
@@ -299,28 +299,28 @@ const Dashboard = (props) => {
                 </div>
                 {sidebar()} <br />
                 <div className="ui container">
-                    <div className="ui grid">
-                        <div className="five column centered row ">
-                            <div style={{backgroundColor: "green"}} className="column col center aligned">
-                                <div className="ui small statistic inverted">
-                                    <div className="value" >{sum} </div>
+                    <div className="ui grid ">
+                        <div className="five column centered row">
+                            <div style={{backgroundColor: "green"}} className="column col center totals aligned">
+                                <div className="ui mini statistic inverted">
+                                    <h3 className="value" >{sum} SDG </h3>
                                     <div className="label">Total sales</div>
                                 </div>
                             </div>
                             <div style={{backgroundColor: "red"}} className="column col center aligned">
-                                <div className="ui small statistic inverted">
+                                <div className="ui mini statistic inverted">
                                     <div className="value" >{totalRequests} </div>
                                     <div className="label">Total requests</div>
                                 </div>
                             </div>
                             <div style={{backgroundColor: "purple"}} className="column col center aligned">
-                                <div className="ui small statistic inverted">
+                                <div className="ui mini statistic inverted">
                                     <div className="value" >{totalProducts} </div>
                                     <div className="label">Total products</div>
                                 </div>
                             </div>
                             <div style={{backgroundColor: "yellowGreen"}} className="column col center aligned">
-                                <div className="ui small statistic inverted">
+                                <div className="ui mini statistic inverted">
                                     <div className="value" >{totalStock} </div>
                                     <div className="label">total Stock</div>
                                 </div>

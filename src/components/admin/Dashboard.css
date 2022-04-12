@@ -17,3 +17,18 @@
 .li {
     justify-self: center;
 }
+
+@media only screen and (max-width: 650px) {
+    
+    
+    .reqs {
+        flex-wrap: wrap;
+        min-width: 90vw;
+        left: 5vw;
+    }
+
+    .reqs1 {
+        min-width: 90vw;
+        right: 5vw;
+    }
+}
