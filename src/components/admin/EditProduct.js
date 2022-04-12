@@ -9,6 +9,7 @@ const EditProduct = (props)=> {
 
     React.useEffect(()=>{
         props.getProduct(props.id())
+        window.scrollTo(0, 0)
     },[])
 
     const [image, setImage] = React.useState(null)

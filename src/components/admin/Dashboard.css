@@ -21,6 +21,7 @@
 @media only screen and (max-width: 650px) {
     .totals {
         min-width: fit-content;
+        margin-bottom: 5px !important;
     }
     
     .reqs {

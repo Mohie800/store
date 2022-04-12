@@ -9,8 +9,10 @@ const StockEdit = (props)=> {
 
     React.useEffect(()=>{
         props.getProduct(props.id())
+        window.scrollTo(0, 0)
     },[])
 
+    
     const onFormSubmit = (values) => {
         props.editStock(props.id(), values)
     }

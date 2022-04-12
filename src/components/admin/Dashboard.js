@@ -275,7 +275,10 @@ const Dashboard = (props) => {
         return (
             <div className="ui grid">
                 <div className="nine wide column reqs col1">
-                    <Bar data={barData} />
+                    <Bar data={barData} options={{
+                        maintainAspectRatio : false
+                        }}
+                    />
                 </div>
                 <div className="six wide column right floated reqs1 col1">
                     <h1 className="ui header center aligned ">Stock Status</h1>
@@ -296,7 +299,7 @@ const Dashboard = (props) => {
                 <div onClick={()=>setActive("visible")} className=" ui teal basic button ">
                     <i className="sidebar icon"/>
                     Menu
-                </div>
+                </div><br />
                 {sidebar()} <br />
                 <div className="ui container">
                     <div className="ui grid ">
