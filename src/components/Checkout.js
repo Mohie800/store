@@ -25,13 +25,24 @@ const Checkout = (props) => {
     
 
     const requstedPrducts = keys.map(product => {
+        // console.log(`amun: ${product.amount} stk: ${product.stock} lets: ${product.stock-product.amount}`)
         return {productName: product.productName, amount: product.amount}
     })
+    //calculate total stock 
+
 
 
     
     //calculate total payment
-    
+    const cstock = ()=> {
+        props.cart.map(p => {
+            const amount = p.amount;
+            const stock = p.stock;
+            const updatedStock = stock - amount
+            const id = p.id
+            server.patch(`/products/${id}`, {stock: updatedStock});
+        })
+    }
 
     const sum1 = props.cart.map(pro => {
         return Number(pro.productPrice)*Number(pro.amount)
@@ -46,6 +57,7 @@ const Checkout = (props) => {
         await server.post("/requests",{...values,payment:sum, req: requstedPrducts, date: new Date().toUTCString(), month: new Date().getMonth()+1, id:Math.random().toString(36).substr(2, 9)})
         server.post("/new", {name: values.name, date: new Date().toUTCString(), month: new Date().getMonth()+1})
         props.clearCart()
+        cstock()
         history.push("/thanks")
     }
 

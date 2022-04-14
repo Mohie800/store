@@ -45,7 +45,7 @@ const ProductList = (props) => {
 
     const renderCartList = ()=> {
         return props.cart.map(cartItem => {
-            return (<div className="item">
+            return (<div className="item" key={cartItem.id}>
                 <img src={cartItem.url} className="ui avatar image" />
                 <div className="content">
                     <a className="header">{cartItem.productName}</a>
@@ -64,7 +64,8 @@ const ProductList = (props) => {
         setAmount("1")
     }
     const renderCartButton = (product)=> {
-        if (product.stock === "0" && !props.isSignedIn) {
+        const sto = product.stock
+        if (sto <= 0 && !props.isSignedIn) {
             return (
                 <div className="right floated content">
                     <button className="ui red basic labeled icon button">
@@ -87,7 +88,7 @@ const ProductList = (props) => {
     }
 
     const renderAmount = (product) => {
-        if(product.stock === "0") {
+        if(product.stock <= 0) {
             return null;
         } else if(!props.isSignedIn) {
             return (
