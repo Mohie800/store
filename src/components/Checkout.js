@@ -49,6 +49,29 @@ const Checkout = (props) => {
         history.push("/thanks")
     }
 
+    const renderError = ({error, touched}) => {
+        if(touched && error) {
+            return (
+                <div className="ui error message">
+                    <div className="header">{error}</div>
+                </div>
+            )
+        }
+    }
+
+    const renderInput = ({input, meta}) => {
+
+        const className = `field ${meta.error && meta.touched ? "error" : ""}`
+        return (
+            <div className= {className} >
+                <input {...input} autoComplete="off" />
+                {renderError(meta)}
+            </div>
+        )
+    }
+
+    
+
 
     return (
         <div>
@@ -60,13 +83,13 @@ const Checkout = (props) => {
                             <div className="ui  segment">
                                 <div className="field">
                                     <label>Name</label>
-                                    <Field type="text" name="name" component="input" />
+                                    <Field name="name" type="text"  component={renderInput} />
                                     <label>Email</label>
-                                    <Field type="email" name="email" component="input" />
+                                    <Field type="email" name="email" component={renderInput} />
                                     <label>Phone Number</label>
-                                    <Field type="number" name="number" component="input" />
+                                    <Field type="number" name="number" component={renderInput} />
                                     <label>Adress</label>
-                                    <Field type="text" name="adress" component="input" />
+                                    <Field type="text" name="adress" component={renderInput} />
                                     {`Your total payment is: ${sum} SDG`}
                                     <button className="ui fluid large teal submit button">Checkout  (Pay {sum} SDG)</button>
                                 </div>
@@ -79,6 +102,26 @@ const Checkout = (props) => {
     )
 }
 
+const validate = values => {
+    const errors = {}
+    if (!values.name) {
+      errors.name = 'Required'
+    }
+
+    if (!values.email) {
+        errors.email = 'Required'
+    } 
+
+    if (!values.number) {
+        errors.number = 'Required'
+      } 
+
+    if (!values.adress) {
+        errors.adress = 'Required'
+    }
+    return errors
+  }
+
 const mapStateToProps = (state) => {
     return{
         cart: state.cart
@@ -86,7 +129,8 @@ const mapStateToProps = (state) => {
 }
 
 const formWraped = reduxForm({
-    form : "AuthForm"
+    form : "AuthForm",
+    validate
 }) (Checkout);
 
 export default connect(mapStateToProps, { clearCart })(formWraped);
