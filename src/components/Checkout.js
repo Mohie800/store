@@ -28,12 +28,10 @@ const Checkout = (props) => {
         // console.log(`amun: ${product.amount} stk: ${product.stock} lets: ${product.stock-product.amount}`)
         return {productName: product.productName, amount: product.amount}
     })
+
+
     //calculate total stock 
 
-
-
-    
-    //calculate total payment
     const cstock = ()=> {
         props.cart.map(p => {
             const amount = p.amount;
@@ -44,6 +42,9 @@ const Checkout = (props) => {
         })
     }
 
+    
+    //calculate total payment
+    
     const sum1 = props.cart.map(pro => {
         return Number(pro.productPrice)*Number(pro.amount)
         })
