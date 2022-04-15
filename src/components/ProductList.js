@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 import { getProducts, addToCart, removeFromCart } from "./actions";
 import { Link } from "react-router-dom";
 import Popup from 'reactjs-popup';
-
 const ProductList = (props) => {
 
-    const [amount, setAmount] = React.useState("1");
+    const [amount, setAmount] = React.useState(1);
 
     const [open, setOpen] = React.useState(false);
     const closeModal = () => setOpen(false);
@@ -61,7 +60,7 @@ const ProductList = (props) => {
 
     const handleAddToCart = async (product)=> {
         await props.addToCart(product, amount)
-        setAmount("1")
+        setAmount(1)
     }
     const renderCartButton = (product)=> {
         const sto = product.stock
@@ -87,14 +86,33 @@ const ProductList = (props) => {
         
     }
 
+    const incAmpount = ()=> {
+        setAmount(amount + 1 )
+    }
+
+    const decAmount = () => {
+        if(amount < 2 ) {
+            return
+        }
+            setAmount(amount - 1)
+        
+    }
+
     const renderAmount = (product) => {
         if(product.stock <= 0) {
             return null;
         } else if(!props.isSignedIn) {
             return (
                 <>
-                <label>Amount:</label>
-                <input onChange={(e)=>setAmount(e.target.value)} style={{"width":"50px"}} className="ui input" type="number" defaultValue="1" />
+                <div style={{"width":"50px"}} className="ui right labeled input">
+                    <input type="text" inputMode="numeric" onChange={(e)=>setAmount(e.target.value)} value={amount}/>
+                    <div className="ui mini vertical buttons">
+                        <button onClick={()=>incAmpount()} className="ui icon button" command="Up"> <i className="up chevron icon"></i>
+                        </button>
+                        <button onClick={()=> decAmount()} className="ui icon button" command="Down"> <i className="down chevron icon"></i>
+                        </button>
+                    </div>
+                </div>
                 </>
             )
         }
@@ -137,9 +155,9 @@ const ProductList = (props) => {
                             <Popup open={open} closeOnDocumentClick onClose={closeModal} 
                                 contentStyle={{backgroundColor:"whitesmoke",minWidth: "30vh"}}>
                                 <div className="ui segment">
-                                    <a className="close" onClick={closeModal}>
-                                        &times;
-                                    </a>
+                                    <i className="ui times circle teal large icon" onClick={closeModal}>
+                                       
+                                    </i>
                                     <div className="ui celled big list">
                                         {renderCartList()}
                                     </div>
