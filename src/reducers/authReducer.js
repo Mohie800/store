@@ -6,8 +6,7 @@ const authReducer = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case "SIGN_IN":
       if (
-        action.payload.Username === "admin" &&
-        action.payload.password === "adminpass"
+        action.payload === "success"
       ) {
         return { ...state, isSignedIn: true };
       } else {

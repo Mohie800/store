@@ -1,4 +1,5 @@
 import server from "../../api/server";
+import authServer from "../../api/authServer";
 import history from "../../history";
 
 export const uploadProduct = (values, url) => async dispath => {
@@ -59,12 +60,19 @@ export const deleteProduct = (id) => async dispath => {
     history.push("/")
 }
 
-export const signIn = (values) => dispath => {
+export const signIn = (values) => async dispath => {
+    const data = JSON.stringify(values)
+    const response = await authServer.post("/",data)
     dispath( {
         type : "SIGN_IN",
-        payload: values
+        payload: response.data
     })
-    history.push("/admin/dashboard")
+    if (response.data === "success") {
+        history.push("/admin/dashboard")
+    } else {
+        alert("wrong creds")
+    }
+    
 }
 
 export const addToCart = (product, amount) => {
