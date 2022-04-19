@@ -6,6 +6,12 @@ import { signIn } from "../actions";
 
 const AuthAdmin = (props)=> {
 
+    const [loading, setLoading] = React.useState("")
+
+    const onButSubmit = ()=> {
+        setLoading("loading")
+    }
+
     const onSubmit = (values) => {
         props.signIn(values)
     }
@@ -21,7 +27,7 @@ const AuthAdmin = (props)=> {
                                 <Field type="text" name="Username" component="input" />
                                 <label>Password</label>
                                 <Field type="password" name="password" component="input" />
-                                <button className="ui fluid large teal submit button">Enter</button>
+                                <button onClick={()=> onButSubmit()} className={`ui fluid large teal submit button ${loading}`}>Enter</button>
                             </div>
                         </div>
                     </form>

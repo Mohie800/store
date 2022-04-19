@@ -27,7 +27,7 @@ const Cart = (props)=> {
                         <div className="right floated content">
                             <button onClick={()=>props.removeFromCart(product)} className="ui teal basic button">Remove</button>
                         </div>
-                        <p>Amount : {product.amount}</p>
+                        <p>Amount : {product.pAmount}</p>
                         
                     </div>
                 </div>

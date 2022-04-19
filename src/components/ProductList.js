@@ -5,16 +5,26 @@ import { Link } from "react-router-dom";
 import Popup from 'reactjs-popup';
 const ProductList = (props) => {
 
-    const [amount, setAmount] = React.useState(1);
+    const [Products, setProducts] = React.useState([])
 
     const [open, setOpen] = React.useState(false);
     const closeModal = () => setOpen(false);
     
-
-
     React.useEffect(()=> {
         props.getProducts()
     }, [])
+
+    const {products} = props
+
+    
+
+    React.useEffect(()=> {
+        
+        setProducts(
+        products.map(p => {
+            return {...p , pAmount: 1}
+            }))
+    }, [products])
 
 
     const renderCreate = ()=> {
@@ -48,7 +58,7 @@ const ProductList = (props) => {
                 <img src={cartItem.url} className="ui avatar image" />
                 <div className="content">
                     <a className="header">{cartItem.productName}</a>
-                    <div className="description">{`${cartItem.productPrice} SDG  amount: ${cartItem.amount}`}</div>
+                    <div className="description">{`${cartItem.productPrice} SDG  amount: ${cartItem.pAmount}`}</div>
                     <div className=" content description">
                         <button onClick={()=>props.removeFromCart(cartItem)} className="ui teal basic button">Remove</button>
                     </div>
@@ -59,8 +69,7 @@ const ProductList = (props) => {
 
 
     const handleAddToCart = async (product)=> {
-        await props.addToCart(product, amount)
-        setAmount(1)
+        await props.addToCart(product)
     }
     const renderCartButton = (product)=> {
         const sto = product.stock
@@ -86,16 +95,34 @@ const ProductList = (props) => {
         
     }
 
-    const incAmpount = ()=> {
-        setAmount(amount + 1 )
+    const incAmpount = (product)=> {
+
+
+        setProducts( Products.map(p =>
+            p.id === product.id
+              ? { ...p, pAmount: p.pAmount+1 }
+              : p
+          ));
+        
     }
 
-    const decAmount = () => {
-        if(amount < 2 ) {
+    const decAmount = (product) => {
+        if(product.pAmount < 2 ) {
             return
         }
-            setAmount(amount - 1)
-        
+        setProducts( Products.map(p =>
+            p.id === product.id
+              ? { ...p, pAmount: p.pAmount - 1 }
+              : p
+          ));
+    }
+
+    const handleChangAmuont = (e, product)=> {
+        setProducts( Products.map(p =>
+            p.id === product.id
+              ? { ...p, pAmount: e.target.value }
+              : p
+          ));
     }
 
     const renderAmount = (product) => {
@@ -105,11 +132,11 @@ const ProductList = (props) => {
             return (
                 <>
                 <div style={{"width":"50px"}} className="ui right labeled input">
-                    <input type="text" inputMode="numeric" onChange={(e)=>setAmount(e.target.value)} value={amount}/>
+                    <input type="text" inputMode="numeric" onChange={(e)=> handleChangAmuont(e, product)} value={product.pAmount}/>
                     <div className="ui mini vertical buttons">
-                        <button onClick={()=>incAmpount()} className="ui icon button" command="Up"> <i className="up chevron icon"></i>
+                        <button onClick={()=>incAmpount(product)} className="ui icon button" command="Up"> <i className="up chevron icon"></i>
                         </button>
-                        <button onClick={()=> decAmount()} className="ui icon button" command="Down"> <i className="down chevron icon"></i>
+                        <button onClick={()=> decAmount(product)} className="ui icon button" command="Down"> <i className="down chevron icon"></i>
                         </button>
                     </div>
                 </div>
@@ -120,7 +147,7 @@ const ProductList = (props) => {
 
 
     const renderCards = ()=> {
-        return props.products.map(product => {
+        return Products.map(product => {
             return (
                 <div className="card animate__animated animate__backInUp animate__animated" key={product.id}>
                     <div className="image">
@@ -186,9 +213,7 @@ const ProductList = (props) => {
         } else {
             return (
                 <>
-                    <div className=""><br />
-                        <h2 className="ui teal big button">Products</h2>
-                    </div><br />{renderCreate()}
+                    {renderCreate()}
                     <div className="ui link cards centered" >
                         {renderCards()}
                     </div>
@@ -201,6 +226,9 @@ const ProductList = (props) => {
 
     return (
         <div className="ui container center">
+            <div className="ui container head"><br />
+                <h2 className="ui teal big button">Products</h2>
+            </div><br />
             {renderAll()}
         </div>
     )

@@ -9,6 +9,12 @@ import { clearCart } from "./actions";
 
 const Checkout = (props) => {
 
+    const [loading, setLoading] = React.useState("")
+
+    const onButSubmit = ()=> {
+        setLoading("loading")
+    }
+
 
     //calculate requsted products
     let counter = {}
@@ -34,7 +40,7 @@ const Checkout = (props) => {
 
     const cstock = ()=> {
         props.cart.map(p => {
-            const amount = p.amount;
+            const amount = p.pAmount;
             const stock = p.stock;
             const updatedStock = stock - amount
             const id = p.id
@@ -46,7 +52,7 @@ const Checkout = (props) => {
     //calculate total payment
     
     const sum1 = props.cart.map(pro => {
-        return Number(pro.productPrice)*Number(pro.amount)
+        return Number(pro.productPrice)*Number(pro.pAmount)
         })
         
         const sum = sum1.reduce((accumulator, value) => {
@@ -104,7 +110,7 @@ const Checkout = (props) => {
                                     <label>Adress</label>
                                     <Field type="text" name="adress" component={renderInput} />
                                     {`Your total payment is: ${sum} SDG`}
-                                    <button className="ui fluid large teal submit button">Checkout  (Pay {sum} SDG)</button>
+                                    <button onClick={()=> onButSubmit()} className={`ui fluid large teal submit button ${loading}`}>Checkout  (Pay {sum} SDG)</button>
                                 </div>
                             </div>
                         </form>
