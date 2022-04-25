@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { getProducts, addToCart, removeFromCart } from "./actions";
 import { Link } from "react-router-dom";
 import Popup from 'reactjs-popup';
+import Card from "./Card";
+import "./productList.css";
+
 const ProductList = (props) => {
 
     const [Products, setProducts] = React.useState([])
@@ -100,7 +103,7 @@ const ProductList = (props) => {
 
         setProducts( Products.map(p =>
             p.id === product.id
-              ? { ...p, pAmount: p.pAmount+1 }
+              ? { ...p, pAmount: Number(p.pAmount) + 1 }
               : p
           ));
         
@@ -112,7 +115,7 @@ const ProductList = (props) => {
         }
         setProducts( Products.map(p =>
             p.id === product.id
-              ? { ...p, pAmount: p.pAmount - 1 }
+              ? { ...p, pAmount: Number(p.pAmount) - 1 }
               : p
           ));
     }
@@ -149,20 +152,15 @@ const ProductList = (props) => {
     const renderCards = ()=> {
         return Products.map(product => {
             return (
-                <div className="card animate__animated animate__backInUp animate__animated" key={product.id}>
-                    <div className="image">
-                        <img src={product.url} />
-                    </div>
-                    <div className="content">
-                        <div className="header">{product.productName}</div>
-                        <div className="description">Price : {product.productPrice} SDG</div>
-                    </div>
-                    <div className="extra content" >
-                        {renderAmount(product)}
-                        {renderCartButton(product)}<br/>
-                        {renderAdmin(product)}
-                    </div>
-                </div>
+                <Card
+                    key={product.id}
+                    url={product.url}
+                    name={product.productName}
+                    price={product.productPrice}
+                    renderAmount={renderAmount(product)}
+                    renderCartButton={renderCartButton(product)}
+                    renderAdmin={renderAdmin(product)}
+                />
             )
         })
     }
@@ -199,9 +197,10 @@ const ProductList = (props) => {
             )
         }
     }
+    
     const renderAll = ()=> {
-        if (!props.products) {
-            <div className="ui icon message">
+        if (Products.length==0) {
+            return (<div className="ui icon message">
                 <i className="notched circle loading icon"></i>
                 <div className="content">
                     <div className="header">
@@ -209,7 +208,7 @@ const ProductList = (props) => {
                     </div>
                     <p>We're fetching that content for you.</p>
                 </div>
-            </div>
+            </div>)
         } else {
             return (
                 <>
@@ -225,12 +224,17 @@ const ProductList = (props) => {
     }
 
     return (
+        <>
+        <div className="header-pic">
+            <div className="head1">Useless Items</div>
+        </div>
         <div className="ui container center">
             <div className="ui container head"><br />
                 <h2 className="ui teal big button">Products</h2>
             </div><br />
             {renderAll()}
         </div>
+        </>
     )
 }
 

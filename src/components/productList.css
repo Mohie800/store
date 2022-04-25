@@ -1,0 +1,19 @@
+.header-pic {
+    width: 100vw;
+    height: 30vh;
+    background-color: #3bfff0;
+    background-image: linear-gradient(147deg, #3bfff0 0%, #25acff 74%);    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
+
+.head1 {
+  font-size: xx-large;
+  border-color: aliceblue;
+  border: 5px;
+  border-style: double;
+  padding: 3rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
