@@ -2,16 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { getProducts, addToCart, removeFromCart } from "./actions";
 import { Link } from "react-router-dom";
-import Popup from 'reactjs-popup';
 import Card from "./Card";
+import CardList from "./CartList"; 
 import "./productList.css";
+import Banner from "./Banner";
 
 const ProductList = (props) => {
 
     const [Products, setProducts] = React.useState([])
 
     const [open, setOpen] = React.useState(false);
-    const closeModal = () => setOpen(false);
+    
     
     React.useEffect(()=> {
         props.getProducts()
@@ -55,19 +56,18 @@ const ProductList = (props) => {
     }
 
 
-    const renderCartList = ()=> {
-        return props.cart.map(cartItem => {
-            return (<div className="item" key={cartItem.id}>
-                <img src={cartItem.url} className="ui avatar image" />
-                <div className="content">
-                    <a className="header">{cartItem.productName}</a>
-                    <div className="description">{`${cartItem.productPrice} SDG  amount: ${cartItem.pAmount}`}</div>
-                    <div className=" content description">
-                        <button onClick={()=>props.removeFromCart(cartItem)} className="ui teal basic button">Remove</button>
-                    </div>
-                </div>
-            </div>)
-        })
+    
+
+    const newCartLits = ()=> {
+            return (
+                <CardList
+                id="card-list"
+                open={open} 
+                setOpen={setOpen} 
+                products={props.cart}
+                remove={props.removeFromCart}
+                />
+            )
     }
 
 
@@ -173,26 +173,10 @@ const ProductList = (props) => {
         } else {
              return (
                 <div>
-                    <button onClick={() => setOpen(o => !o)} style={{right: "10px", top: "40vh",borderColor: "black", position: "fixed"}} className="circular ui sticky icon teal button">
+                    <button onClick={() => setOpen(o => !o)} style={{left: "10px", top: "40vh",borderColor: "black", position: "fixed"}} className="circular ui sticky icon teal button">
                         {`(${props.cart.length})`}<i className=" large icon cart" />
                     </button>
-                        <div className="popup-content">
-                            <Popup open={open} closeOnDocumentClick onClose={closeModal} 
-                                contentStyle={{backgroundColor:"whitesmoke",minWidth: "30vh"}}>
-                                <div className="ui segment">
-                                    <i className="ui times circle teal large icon" onClick={closeModal}>
-                                       
-                                    </i>
-                                    <div className="ui celled big list">
-                                        {renderCartList()}
-                                    </div>
-                                    <Link to="/cart" className="ui teal labeled icon button">
-                                        <i className="icon cart" />
-                                        Go to Cart
-                                    </Link>
-                                </div>
-                            </Popup>
-                        </div>
+                        {newCartLits()}
                 </div>
             )
         }
@@ -225,9 +209,7 @@ const ProductList = (props) => {
 
     return (
         <>
-        <div className="header-pic">
-            <div className="head1">Useless Items</div>
-        </div>
+        <Banner />
         <div className="ui container center">
             <div className="ui container head"><br />
                 <h2 className="ui teal big button">Products</h2>

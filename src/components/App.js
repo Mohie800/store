@@ -22,7 +22,8 @@ import Stock from "./admin/Stock";
 import StockEdit from "./admin/StockEdit";
 import Archive from "./admin/Archive";
 import ArcShow from "./admin/ArcShow";
-import "./App.css"
+import "../styles/index.css";
+import "./App.css";
 
 const App = ()=> {
 
