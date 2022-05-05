@@ -8,7 +8,7 @@ const Banner = ()=> {
                 <img className="hidden md:block object-cover  w-full h-56 lg:h-52" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/banner_12_bg_ipad_desktop.png" alt="background" />
                 <div className=" flex xl:px-20 justify-start items-start flex-col absolute">
                 <h1 className="text0-xl xl:text-2xl font-medium leading-5 xl:leading-normal text-gray-800">Buy now</h1>
-                <p className="w-44 sm:w-64 lg:w-2/3 mt-4 text-base leading-6 xl:leading-5 text-gray-800">Shop our completly useless items</p>
+                <p className="w-44 sm:w-64 lg:w-2/3 mt-4 text-base leading-6 xl:leading-5 text-gray-800">Shop our completley useless items</p>
                 <button className="mt-5 xl:mt-6 hover:underline underline-offset-4 transition duration-300 ease-in-out flex justify-start items-center space-x-2">
                     <p className="text-base font-medium leading-none pb-0.5">Shop</p>
                     <svg width={6} height={12} viewBox="0 0 6 12" fill="none" xmlns="http://www.w3.org/2000/svg">

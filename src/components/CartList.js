@@ -78,7 +78,7 @@ export default function CardList(props) {
                                     <h3>
                                        {product.productName}
                                     </h3>
-                                    <p className="ml-4">{product.productPrice}</p>
+                                    <p className="ml-4">{`${product.productPrice} SDG`}</p>
                                   </div>
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
@@ -101,7 +101,7 @@ export default function CardList(props) {
                   <div className="border-t border-gray-200 py-6 px-4 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <p>Subtotal</p>
-                      <p>{sum}</p>
+                      <p>{`${sum} SDG`}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">Shipping calculated at checkout.</p>
                     <div className="mt-6">
