@@ -10,13 +10,13 @@ import newCount from "./newCount";
 import aproveCount from "./aproveCount";
 
 export default combineReducers({
-    form: reducer,
-    products : productReducer,
-    authState: authReducer,
-    cart: cartReducer,
-    requests: requestsReducer,
-    aproved: aproveReducer,
-    archive: archiveReducer,
-    new: newCount,
-    aproveCount: aproveCount
-})
+	form: reducer,
+	products: productReducer,
+	authState: authReducer,
+	cart: cartReducer,
+	requests: requestsReducer,
+	aproved: aproveReducer,
+	archive: archiveReducer,
+	new: newCount,
+	aproveCount: aproveCount,
+});
